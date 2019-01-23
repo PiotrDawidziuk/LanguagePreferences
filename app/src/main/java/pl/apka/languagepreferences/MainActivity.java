@@ -1,13 +1,24 @@
 package pl.apka.languagepreferences;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     public void setLanguage (String language){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pl.apka.languagepreferences", Context.MODE_PRIVATE);
+
+        sharedPreferences.edit().putString("language",language);
+
+        TextView textView = findViewById(R.id.textView);
+
+        textView.setText(language);
+
         
     }
 
@@ -24,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("English", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //set english
+                        setLanguage("English");
                     }
                 })
                 .setNegativeButton("Spanish", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //set spanish
+                        setLanguage("Spanish");
                     }
                 })
                 .show();
